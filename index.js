@@ -1,6 +1,11 @@
 // TASK: import helper functions from utils
-// TASK: import initialData
-
+import getTasks from './utils/taskFunctions.js'
+import {createNewTask} from './utils/taskFunctions.js';
+import { patchTask } from './utils/taskFunctions.js';
+import { putTask } from './utils/taskFunctions.js';
+import {deleteTask} from './utils/taskFunctions.js'
+// TASK: import initialData 
+import { initialData } from './initialData.js';
 
 /*************************************************************************************************************************************************
  * FIX BUGS!!!
