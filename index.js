@@ -1,9 +1,6 @@
 // TASK: import helper functions from utils
-import getTasks from './utils/taskFunctions.js'
-import {createNewTask} from './utils/taskFunctions.js';
-import { patchTask } from './utils/taskFunctions.js';
-import { putTask } from './utils/taskFunctions.js';
-import {deleteTask} from './utils/taskFunctions.js'
+import { createNewTask,getTasks, patchTask, putTask, deleteTask } from './utils/taskFunctions.js';
+
 // TASK: import initialData 
 import { initialData } from './initialData.js';
 
@@ -23,8 +20,34 @@ function initializeData() {
 
 // TASK: Get elements from the DOM
 const elements = {
+    sideBar: document.getElementById('side-bar-div'),
+    boardsNavLinksDiv: document.getElementById('boards-nav-links-div'),
+    themeSwitch: document.getElementById('switch'),
+    hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
+    showSideBarBtn: document.getElementById('show-side-bar-btn'),
+    headerBoardName: document.getElementById('header-board-name'),
+    dropdownBtn: document.getElementById('dropdownBtn'),
+    addNewTaskBtn: document.getElementById('add-new-task-btn'),
+    editBoardBtn: document.getElementById('edit-board-btn'),
+    deleteBoardBtn: document.getElementById('deleteBoardBtn'),
+    tasksContainers: document.querySelectorAll('.tasks-container'),
+    columnDivs: document.querySelectorAll('.column-div'),
+    newTaskModalWindow: document.getElementById('new-task-modal-window'),
+    titleInput: document.getElementById('title-input'),
+    descInput: document.getElementById('desc-input'),
+    selectStatus: document.getElementById('select-status'),
+    createTaskBtn: document.getElementById('create-task-btn'),
+    cancelAddTaskBtn: document.getElementById('cancel-add-task-btn'),
+    editTaskForm: document.getElementById('edit-task-form'),
+    editTaskTitleInput: document.getElementById('edit-task-title-input'),
+    editTaskDescInput: document.getElementById('edit-task-desc-input'),
+    editSelectStatus: document.getElementById('edit-select-status'),
+    saveTaskChangesBtn: document.getElementById('save-task-changes-btn'),
+    cancelEditBtn: document.getElementById('cancel-edit-btn'),
+    deleteTaskBtn: document.getElementById('delete-task-btn'),
+    filterDiv: document.getElementById('filterDiv'),
+  };
 
-}
 
 let activeBoard = ""
 
