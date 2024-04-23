@@ -135,10 +135,10 @@ function styleActiveBoard(boardName) {
   document.querySelectorAll('.board-btn').foreach(btn => { 
     
     if(btn.textContent === boardName) {
-      btn.add('active') 
+      btn.classList.add('active') 
     }
     else {
-      btn.remove('active'); 
+      btn.classList.remove('active'); 
     }
   });
 }
