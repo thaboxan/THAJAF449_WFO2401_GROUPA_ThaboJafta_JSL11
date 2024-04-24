@@ -300,9 +300,6 @@ function openEditTaskModal(task) {
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
-  let title = document.getElementById("edit-task-title-input").value;
-  let desc = document.getElementById("edit-task-desc-input").value;
-  let status = document.getElementById("edit-select-status").value;
   // Create an object with the updated task details
   const updatedTask = {
     title: elements.editTaskTitleInput.value,
@@ -314,14 +311,15 @@ function saveTaskChanges(taskId) {
   // Update task using a hlper functoin
   putTask(taskId, updatedTask);
   // Close the modal and refresh the UI to reflect the changes
-  toggleModal(false, elements.editTaskModal);
-  elements.filterDiv.style.display = "none";
+  elements.editTaskModalWindow.style.display = "none";
+
   refreshTasksUI();
 }
 
 /*************************************************************************************************************************************************/
 
 document.addEventListener("DOMContentLoaded", function () {
+  initializeData();
   init(); // init is called after the DOM is fully loaded
 });
 
