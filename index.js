@@ -169,7 +169,7 @@ function addTaskToUI(task) {
   taskElement.textContent = task.title; // Modify as needed
   taskElement.setAttribute("data-task-id", task.id);
 
-  tasksContainer.appendChild();
+  tasksContainer.appendChild(taskElement);
 }
 
 function setupEventListeners() {
@@ -260,13 +260,14 @@ function toggleTheme() {
 
 function openEditTaskModal(task) {
   // Set task details in modal inputs
-
   const title = document.getElementById("edit-task-title-input");
   const desc = document.getElementById("edit-task-desc-input");
   const status = document.getElementById("edit-select-status");
+
   title.value = task.title;
   desc.value = task.description;
   status.value = task.status;
+
   // Get button elements from the task modal
   const saveTaskChangesBtn = document.getElementById("save-task-changes-btn");
   const deleteTaskBtn = document.getElementById("delete-task-btn");
@@ -278,25 +279,20 @@ function openEditTaskModal(task) {
   );
 
   // Call saveTaskChanges upon click of Save Changes button
-  saveTaskChangesBtn.addEventListener("click", () => {
+  saveTaskChangesBtn.addEventListener("click", function saveEdit() {
     saveTaskChanges(task.id);
     elements.editTaskModalWindow.style.display = "none";
     elements.newTaskModalWindow.style.display = "none";
+    saveTaskChangesBtn.removeEventListener("click", saveEdit);
   });
 
-  toggleModal(true, elements.editTaskModal); // Show the edit task modal
-
   // Delete task using a helper function and close the task modal
-  deleteTaskBtn.addEventListener("click", () => {
+  deleteTaskBtn.addEventListener("click", function deleteEdit() {
     deleteTask(task.id);
     elements.editTaskModalWindow.style.display = "none";
     elements.newTaskModalWindow.style.display = "none";
     refreshTasksUI();
-  });
-  saveTaskChangesBtn.addEventListener("click", () => {
-    saveTaskChanges(task.id);
-    elements.editTaskModalWindow.style.display = "none";
-    elements.newTaskModalWindow.style.display = "none";
+    deleteTaskBtn.removeEventListener("click", deleteEdit);
   });
 
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
@@ -308,17 +304,15 @@ function saveTaskChanges(taskId) {
   let desc = document.getElementById("edit-task-desc-input").value;
   let status = document.getElementById("edit-select-status").value;
   // Create an object with the updated task details
-  const updateTask = getTasks().find((task) => task.id === taskId);
-  if (updateTask) {
-    updateTask.title = title;
-    updateTask.description = desc;
-    updateTask.status = status;
-  } else {
-    console.log("Task not found with the specified ID:", taskId);
-  }
+  const updatedTask = {
+    title: elements.editTaskTitleInput.value,
+    description: elements.editTaskDescInput.value,
+    status: elements.editSelectStatus.value,
+    board: activeBoard,
+  };
 
   // Update task using a hlper functoin
-  putTask(taskId, updateTask);
+  putTask(taskId, updatedTask);
   // Close the modal and refresh the UI to reflect the changes
   toggleModal(false, elements.editTaskModal);
   elements.filterDiv.style.display = "none";
@@ -332,6 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function init() {
+  initializeData();
   setupEventListeners();
   const showSidebar = localStorage.getItem("showSideBar") === "true";
   toggleSidebar(showSidebar);
