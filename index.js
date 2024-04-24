@@ -112,7 +112,7 @@ function filterAndDisplayTasksByBoard(boardName) {
     column.appendChild(tasksContainer);
 
     filteredTasks
-      .filter((task) => (task.status = status))
+      .filter((task) => task.status === status) //added strictly equality
       .forEach((task) => {
         const taskElement = document.createElement("div");
         taskElement.classList.add("task-div");
@@ -122,6 +122,7 @@ function filterAndDisplayTasksByBoard(boardName) {
         // Listen for a click event on each task and open a modal
         taskElement.addEventListener("click", () => {
           openEditTaskModal(task);
+          elements.editTaskModalWindow.style.display = "block";
         });
 
         tasksContainer.appendChild(taskElement);
