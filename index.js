@@ -189,7 +189,8 @@ function setupEventListeners() {
 
   // Clicking outside the modal to close it
   elements.filterDiv.addEventListener("click", () => {
-    toggleModal(false);
+    toggleModal(false, elements.modalWindow);
+    toggleModal(false, elements.editTaskModal);
     elements.filterDiv.style.display = "none"; // Also hide the filter overlay
   });
 
@@ -226,9 +227,9 @@ function addTask(event) {
 
   //Assign user input to the task object
   const task = {
-    description: document.getElementById("desc-input").value,
-    title: document.getElementById("title-input").value,
     status: document.getElementById("select-status").value,
+    title: document.getElementById("title-input").value,
+    description: document.getElementById("desc-input").value,
     board: activeBoard,
   };
   const newTask = createNewTask(task);
@@ -270,12 +271,23 @@ function openEditTaskModal(task) {
   const saveTaskChangesBtn = document.getElementById("save-task-changes-btn");
   const deleteTaskBtn = document.getElementById("delete-task-btn");
   // Call saveTaskChanges upon click of Save Changes button
-  saveTaskChangesBtn.addEventListener(
-    "click",
-    () => (elements.editTaskModalWindow.style.display = "none")
-  );
+  saveTaskChangesBtn.addEventListener("click", () => {
+    saveTaskChanges(task.id);
+    elements.editTaskModalWindow.style.display = "none";
+    elements.newTaskModalWindow.style.display = "none";
+  });
+
+  toggleModal(true, elements.editTaskModal); // Show the edit task modal
+}
+
   // Delete task using a helper function and close the task modal
-  deleteTaskBtn.addEventListener("click", () => {
+  deleteTaskBtn.addEventListener("click", function deleteEdit() {
+    deleteTask(task.id);
+    toggleModal(false, elements.editTaskModal);
+    elements.filterDiv.style.display = "none";
+    refreshTasksUI();
+    deleteBtn.removeEventListener("click", deleteEdit);
+
     elements.editTaskModalWindow.style.display = "none";
   });
 
