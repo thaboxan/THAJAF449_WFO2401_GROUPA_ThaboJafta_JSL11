@@ -23,7 +23,7 @@ function initializeData() {
   }
 }
 
-// TASK: Get elements from the DOM
+// TASK: Get elements from the DOM Define DOM elements used in the script
 const elements = {
   sideBar: document.getElementById("side-bar-div"),
   boardsNavLinksDiv: document.getElementById("boards-nav-links-div"),
@@ -60,6 +60,7 @@ let activeBoard = "";
 // Extracts unique board names from tasks
 // TASK: FIX BUGS
 function fetchAndDisplayBoardsAndTasks() {
+  // Fetch tasks from local storage and display them on the DOM
   const tasks = getTasks();
   const boards = [...new Set(tasks.map((task) => task.board).filter(Boolean))];
   displayBoards(boards);
@@ -75,6 +76,7 @@ function fetchAndDisplayBoardsAndTasks() {
 // Creates different boards in the DOM
 // TASK: Fix Bugs
 function displayBoards(boards) {
+  // Display the list of boards on the DOM
   const boardsContainer = document.getElementById("boards-nav-links-div");
   boardsContainer.innerHTML = ""; // Clears the container
   boards.forEach((board) => {
@@ -95,6 +97,7 @@ function displayBoards(boards) {
 // Filters tasks corresponding to the board name and displays them on the DOM.
 // TASK: Fix Bugs
 function filterAndDisplayTasksByBoard(boardName) {
+  // Filter tasks by board name and display them in appropriate columns
   const tasks = getTasks(); // Fetch tasks from a simulated local storage function
   const filteredTasks = tasks.filter((task) => task.board === boardName);
 
@@ -131,12 +134,14 @@ function filterAndDisplayTasksByBoard(boardName) {
 }
 
 function refreshTasksUI() {
+  // Refresh the UI to reflect changes in tasks
   filterAndDisplayTasksByBoard(activeBoard);
 }
 
 // Styles the active board by adding an active class
 // TASK: Fix Bugs
 function styleActiveBoard(boardName) {
+  // Highlight the active board in the navigation
   document.querySelectorAll(".board-btn").forEach((btn) => {
     if (btn.textContent === boardName) {
       btn.classList.add("active");
@@ -147,6 +152,7 @@ function styleActiveBoard(boardName) {
 }
 
 function addTaskToUI(task) {
+  // Add a new task to the UI
   const column = document.querySelector(
     '.column-div[data-status="${task.status}"]'
   );
@@ -173,6 +179,7 @@ function addTaskToUI(task) {
   tasksContainer.appendChild(taskElement);
 }
 
+// Set up event listeners for user interactions
 function setupEventListeners() {
   // Cancel editing task event listener
   const cancelEditBtn = document.getElementById("cancel-edit-btn");
@@ -209,6 +216,7 @@ function setupEventListeners() {
   });
 
   // Add new task form submission event listener
+  // Toggle the visibility of a modal window
   elements.modalWindow.addEventListener("submit", (event) => {
     addTask(event);
   });
@@ -224,6 +232,7 @@ function toggleModal(show, modal = elements.modalWindow) {
  * **********************************************************************************************************************************************/
 
 function addTask(event) {
+  // Add a new task to the list
   event.preventDefault();
 
   //Assign user input to the task object
@@ -243,12 +252,14 @@ function addTask(event) {
   }
 }
 
+// Toggle the visibility of the sidebar
 function toggleSidebar(show) {
   const sidebar = document.querySelector(".side-bar");
   sidebar.style.display = show ? "block" : "none";
   elements.showSideBarBtn.style.display = show ? "none" : "block";
 }
 
+// Toggle between light and dark themes
 function toggleTheme() {
   // get logo from the DOM
   const logo = document.getElementById("logo");
@@ -258,7 +269,7 @@ function toggleTheme() {
     isLightTheme ? "./assets/logo-light.svg" : "./assets/logo-dark.svg"
   );
 }
-
+// Open the modal for editing a task
 function openEditTaskModal(task) {
   // Set task details in modal inputs
   const title = document.getElementById("edit-task-title-input");
@@ -299,6 +310,7 @@ function openEditTaskModal(task) {
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
 }
 
+// Save changes made to a task
 function saveTaskChanges(taskId) {
   // Get new user inputs
   // Create an object with the updated task details
@@ -318,12 +330,13 @@ function saveTaskChanges(taskId) {
 }
 
 /*************************************************************************************************************************************************/
-
+// Initialize the application when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
   initializeData();
   init(); // init is called after the DOM is fully loaded
 });
 
+// Initialize the application
 function init() {
   initializeData();
   setupEventListeners();
