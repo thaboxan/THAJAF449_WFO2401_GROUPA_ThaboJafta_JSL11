@@ -32,5 +32,5 @@ Contributions to the Agile Board project are welcome! If you encounter any issue
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This projectX is licensed under the [MIT License](LICENSE).
 
