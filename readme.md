@@ -1,6 +1,6 @@
 # An Agile Board - Kanban Task Management App
 
-Agile Board is a modern and efficient Kanban Task Management App designed to help individuals and teams streamline their workflow and boost productivity. This project, developed as the final project for the JSL course, is a testament to the mastery of JavaScript and web development principles.
+Agile Board is a modern and efficient Kanban Task Management App designed to help individuals and teams streamline their workflow and boost productivity. This project, developed as the final project for the JSL series, is a testament to the mastery of JavaScript and web development principles.
 
 ## Features
 
